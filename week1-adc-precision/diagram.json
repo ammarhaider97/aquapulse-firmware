@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "author": "Mix Tainment",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-s3-devkitc-1",
+      "id": "esp",
+      "top": -0.18,
+      "left": -43.43,
+      "attrs": { "builder": "esp-idf" }
+    },
+    { "type": "wokwi-potentiometer", "id": "pot1", "top": -20.5, "left": -163.4, "attrs": {} },
+    { "type": "wokwi-gnd", "id": "gnd1", "top": 124.8, "left": -183, "rotate": 90, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 92.6,
+      "left": 105.6,
+      "attrs": { "color": "red", "xray": "1" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pot1:GND", "gnd1:GND", "black", [ "v67.2" ] ],
+    [ "btn1:1.l", "esp:0", "green", [ "h-38.4", "v9.6", "h0", "v0" ] ],
+    [ "esp:GND.1", "gnd1:GND", "black", [ "h0" ] ],
+    [ "pot1:SIG", "esp:1", "green", [ "v28.8", "h66.8", "v-105.6", "h144", "v86.4" ] ],
+    [ "pot1:VCC", "esp:3V3.1", "red", [ "v9.6", "h47.2", "v-28.8" ] ],
+    [ "btn1:2.r", "esp:GND.4", "green", [ "h0.2", "v105.8" ] ]
+  ],
+  "dependencies": {}
+}
