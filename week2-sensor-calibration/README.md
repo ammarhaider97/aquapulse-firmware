@@ -8,4 +8,4 @@
    ## Day 1 — pH
    - Nernst equation (ideal) + two-point linear calibration
    - Unit tests run automatically at boot (`test_ph_run()`), results printed
-     in Wokwi serial monitor
+     in Wokwi serial monitor.
