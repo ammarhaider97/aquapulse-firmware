@@ -1,4 +1,4 @@
-# Week 7 - Day 1: Power Management Integration
+# Week 6 - Day 1: Power Management Integration
 
 Added:
 - Light sleep demo (esp_sleep_enable_timer_wakeup + esp_light_sleep_start)
