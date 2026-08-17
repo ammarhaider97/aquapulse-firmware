@@ -20,7 +20,7 @@ power management demo.
 
 ## Architecture
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     subgraph Sensors["Sensor Tasks (FreeRTOS, own interval + watchdog)"]
         PH[ph_task - 2s]
@@ -30,8 +30,8 @@ flowchart TD
         TMP[temp_task - 1s]
     end
 
-    CAL[(Calibration data\nin RAM, mutex-protected)]
-    NVS[(NVS Flash\ncalibration persistence)]
+    CAL[(Calibration data<br/>in RAM, mutex-protected)]
+    NVS[(NVS Flash<br/>calibration persistence)]
 
     PH --> Q[Sensor Data Queue]
     TDS --> Q
@@ -43,20 +43,20 @@ flowchart TD
     CAL -.read.-> TMP
     CAL <-.save/load.-> NVS
 
-    Q --> AGG[Aggregator Task\nwatchdog-protected]
-    AGG --> SNAP[(g_readings snapshot\nmutex-protected)]
-    AGG --> OLED[SSD1306 OLED\nlive display]
+    Q --> AGG[Aggregator Task<br/>watchdog-protected]
+    AGG --> SNAP[(g_readings snapshot<br/>mutex-protected)]
+    AGG --> OLED[SSD1306 OLED<br/>live display]
 
-    SNAP --> NET[Network Task\nevery 10s]
-    NET --> VAL{Range check\nper reading}
+    SNAP --> NET[Network Task<br/>every 10s]
+    NET --> VAL{Range check<br/>per reading}
     VAL -->|valid| JSON[Build JSON payload]
-    VAL -->|invalid| FLAG[Set fault_flags\nzero out bad field]
+    VAL -->|invalid| FLAG[Set fault_flags<br/>zero out bad field]
     FLAG --> JSON
-    JSON --> WIFI[WiFi STA\nauto-reconnect + backoff]
-    WIFI --> HTTP[HTTP POST\nmock endpoint]
+    JSON --> WIFI[WiFi STA<br/>auto-reconnect + backoff]
+    WIFI --> HTTP[HTTP POST<br/>mock endpoint]
 
-    PWR[Power Mgmt Task\nlight sleep every 5s] -.pauses whole chip\nbriefly, low priority.-> Sensors
-\`\`\`
+    PWR[Power Mgmt Task<br/>light sleep every 5s] -.pauses whole chip briefly, low priority.-> Sensors
+```
 
 ## How to run
 1. Open the Wokwi project (link below)
@@ -68,3 +68,6 @@ flowchart TD
 - `soak-test-log.txt` — 60-minute continuous run, no watchdog reset
 - `nvs-reboot-test.md` — calibration survives simulated reboot
 - `json-fault-oled-test.md` — valid JSON, fault flag rejection, OLED sync
+
+## Wokwi project
+https://wokwi.com/projects/472583908368829441
